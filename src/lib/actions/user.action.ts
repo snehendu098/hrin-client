@@ -7,7 +7,6 @@ import {
 } from "@/types/api";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:8080";
-const BEARER_TOKEN = process.env.API_BEARER_TOKEN || "7XqmzYAUqWhBQGquk9vTKBTnvt9i15gGtej7VoC6qUDp";
 
 export async function getLendEarnings(
   address: string
