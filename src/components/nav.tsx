@@ -15,6 +15,7 @@ const nav = [
   { title: "Market", link: "/" },
   { title: "Dashboard", link: "/dashboard" },
   { title: "Earn", link: "/earn" },
+  { title: "Borrow", link: "/borrow" },
 ];
 
 function Nav() {

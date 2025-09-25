@@ -141,11 +141,23 @@ export default function Dashboard() {
                             (record, index) => (
                               <div
                                 key={index}
-                                className="flex justify-between p-3 bg-neutral-800 rounded"
+                                className="flex justify-between p-4 bg-neutral-800 rounded-lg border"
                               >
-                                <span>
-                                  {record.asset}: {record.amount.toFixed(4)}
-                                </span>
+                                <div className="flex items-center space-x-2">
+                                  <Image
+                                    src={
+                                      record.asset.toLowerCase() === "eth"
+                                        ? "/eth.svg"
+                                        : "/near.svg"
+                                    }
+                                    alt={record.asset}
+                                    width={30}
+                                    height={30}
+                                  />
+                                  <span className="text-md font-semibold">
+                                    {record.amount.toFixed(2)}
+                                  </span>
+                                </div>
                                 <span>${record.usdValue.toLocaleString()}</span>
                               </div>
                             )
@@ -172,14 +184,24 @@ export default function Dashboard() {
                         (record, index) => (
                           <div
                             key={index}
-                            className="flex justify-between p-2 bg-neutral-800 rounded"
+                            className="flex justify-between p-4 border bg-neutral-800 rounded-lg"
                           >
                             <div>
-                              <div>
-                                {record.asset}: {record.amount.toFixed(4)}
+                              <div className="flex items-center space-x-2">
+                                <Image
+                                  src={
+                                    record.asset.toLowerCase() === "eth"
+                                      ? "/eth.svg"
+                                      : "/near.svg"
+                                  }
+                                  alt={record.asset}
+                                  width={16}
+                                  height={16}
+                                />
+                                <span>{record.amount.toFixed(4)}</span>
                               </div>
                               <div className="text-sm text-gray-400">
-                                {record.locked ? "🔒 Locked" : "✅ Available"}
+                                {record.locked ? "Locked" : "Available"}
                               </div>
                             </div>
                             <div>${record.usdValue.toLocaleString()}</div>
