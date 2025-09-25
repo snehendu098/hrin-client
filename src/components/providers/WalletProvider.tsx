@@ -49,15 +49,14 @@ export function WalletProvider({ children }: WalletProviderProps) {
 
     try {
       // Use multiple RPC endpoints for better reliability
-      const rpcEndpoints = [
-        'https://rpc.testnet.near.org',
-      ];
+      const rpcEndpoints = ["https://rpc.testnet.fastnear.com"];
 
       let lastError;
       for (const url of rpcEndpoints) {
         try {
           const provider = new providers.JsonRpcProvider({ url });
-          const res: any = await provider.query({ // eslint-disable-line @typescript-eslint/no-explicit-any
+          const res: any = await provider.query({
+            // eslint-disable-line @typescript-eslint/no-explicit-any
             request_type: "view_account",
             account_id: accountId,
             finality: "final",
@@ -95,7 +94,9 @@ export function WalletProvider({ children }: WalletProviderProps) {
           ],
         });
 
-        const walletModal = setupModal(walletSelector, { contractId: "contract.testnet" });
+        const walletModal = setupModal(walletSelector, {
+          contractId: "contract.testnet",
+        });
 
         setSelector(walletSelector);
         setModal(walletModal);
@@ -107,10 +108,12 @@ export function WalletProvider({ children }: WalletProviderProps) {
         }
 
         // Subscribe to store updates
-        const subscription = walletSelector.store.observable.subscribe((newState) => {
-          const acc = newState.accounts[0];
-          setAccountId(acc?.accountId || null);
-        });
+        const subscription = walletSelector.store.observable.subscribe(
+          (newState) => {
+            const acc = newState.accounts[0];
+            setAccountId(acc?.accountId || null);
+          }
+        );
 
         return () => subscription.unsubscribe();
       } catch (err) {
@@ -149,7 +152,9 @@ export function WalletProvider({ children }: WalletProviderProps) {
     getBalance,
   };
 
-  return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>;
+  return (
+    <WalletContext.Provider value={value}>{children}</WalletContext.Provider>
+  );
 }
 
 export function useWallet() {
