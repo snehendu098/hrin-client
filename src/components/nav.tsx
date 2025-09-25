@@ -8,7 +8,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Button } from "./ui/button";
+import ConnectWalletButton from "./ConnetWallet";
 import Image from "next/image";
 
 const nav = [
@@ -35,9 +35,7 @@ function Nav() {
       <NavigationMenuDemo />
       {/* Connect Button */}
       <div>
-        <Button size={"lg"} className="font-semibold">
-          Connect Wallet
-        </Button>
+        <ConnectWalletButton className="text-lg font-semibold" />
       </div>
     </div>
   );

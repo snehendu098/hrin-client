@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { WalletProvider } from "@/components/providers/WalletProvider";
 import { HeroUIProvider } from "@heroui/system";
 
 const poppins = Poppins({
@@ -28,7 +29,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <HeroUIProvider>{children}</HeroUIProvider>
+          <WalletProvider>
+            <HeroUIProvider>{children}</HeroUIProvider>
+          </WalletProvider>
         </ThemeProvider>
       </body>
     </html>
