@@ -6,6 +6,7 @@ import GridInfoCard, {
 import PageLayout from "@/components/page-layouts";
 import { getDashboardData } from "@/lib/actions/dashboard.action";
 import { DashboardUserData } from "@/types/api";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
@@ -79,7 +80,9 @@ export default function Dashboard() {
             {/* Records Overview - Spans 3 columns */}
             <div className="col-span-3">
               <div className="p-6 bg-neutral-900 rounded-lg border">
-                <h3 className="text-xl font-semibold mb-4">Transaction Records</h3>
+                <h3 className="text-xl font-semibold mb-4">
+                  Transaction Records
+                </h3>
                 {dashboardData && (
                   <div className="space-y-4">
                     {/* Lent Records */}
@@ -87,12 +90,40 @@ export default function Dashboard() {
                       <h4 className="text-lg font-medium mb-2">Lent Funds</h4>
                       {dashboardData.records.lentRecords.length > 0 ? (
                         <div className="space-y-2">
-                          {dashboardData.records.lentRecords.map((record, index) => (
-                            <div key={index} className="flex justify-between p-3 bg-neutral-800 rounded">
-                              <span>{record.asset}: {record.amount.toFixed(4)}</span>
-                              <span>${record.usdValue.toLocaleString()}</span>
-                            </div>
-                          ))}
+                          {dashboardData.records.lentRecords.map(
+                            (record, index) => (
+                              <div
+                                key={index}
+                                className="flex justify-between items-center p-3 bg-neutral-800/90 border rounded-md"
+                              >
+                                <div className="flex items-center space-x-2">
+                                  <Image
+                                    src={
+                                      record.asset.toLowerCase().trim() ===
+                                      "eth"
+                                        ? "/eth.svg"
+                                        : "/near.svg"
+                                    }
+                                    alt={record.asset}
+                                    height={30}
+                                    width={30}
+                                  />
+
+                                  <div className="font-semibold">
+                                    {record.amount.toFixed(2)}
+                                  </div>
+                                </div>
+                                <div className="flex flex-col items-end">
+                                  <p className="font-semibold ">
+                                    ${record.usdValue.toLocaleString()}
+                                  </p>
+                                  <p className="text-primary">
+                                    + $ {record.projectedEarnings.toFixed(2)}
+                                  </p>
+                                </div>
+                              </div>
+                            )
+                          )}
                         </div>
                       ) : (
                         <p className="text-gray-400">No lent funds</p>
@@ -101,15 +132,24 @@ export default function Dashboard() {
 
                     {/* Borrow Records */}
                     <div>
-                      <h4 className="text-lg font-medium mb-2">Borrowed Funds</h4>
+                      <h4 className="text-lg font-medium mb-2">
+                        Borrowed Funds
+                      </h4>
                       {dashboardData.records.borrowRecords.length > 0 ? (
                         <div className="space-y-2">
-                          {dashboardData.records.borrowRecords.map((record, index) => (
-                            <div key={index} className="flex justify-between p-3 bg-neutral-800 rounded">
-                              <span>{record.asset}: {record.amount.toFixed(4)}</span>
-                              <span>${record.usdValue.toLocaleString()}</span>
-                            </div>
-                          ))}
+                          {dashboardData.records.borrowRecords.map(
+                            (record, index) => (
+                              <div
+                                key={index}
+                                className="flex justify-between p-3 bg-neutral-800 rounded"
+                              >
+                                <span>
+                                  {record.asset}: {record.amount.toFixed(4)}
+                                </span>
+                                <span>${record.usdValue.toLocaleString()}</span>
+                              </div>
+                            )
+                          )}
                         </div>
                       ) : (
                         <p className="text-gray-400">No borrowed funds</p>
@@ -128,17 +168,24 @@ export default function Dashboard() {
                 {dashboardData && (
                   <div className="space-y-2">
                     {dashboardData.records.collateralRecords.length > 0 ? (
-                      dashboardData.records.collateralRecords.map((record, index) => (
-                        <div key={index} className="flex justify-between p-2 bg-neutral-800 rounded">
-                          <div>
-                            <div>{record.asset}: {record.amount.toFixed(4)}</div>
-                            <div className="text-sm text-gray-400">
-                              {record.locked ? "🔒 Locked" : "✅ Available"}
+                      dashboardData.records.collateralRecords.map(
+                        (record, index) => (
+                          <div
+                            key={index}
+                            className="flex justify-between p-2 bg-neutral-800 rounded"
+                          >
+                            <div>
+                              <div>
+                                {record.asset}: {record.amount.toFixed(4)}
+                              </div>
+                              <div className="text-sm text-gray-400">
+                                {record.locked ? "🔒 Locked" : "✅ Available"}
+                              </div>
                             </div>
+                            <div>${record.usdValue.toLocaleString()}</div>
                           </div>
-                          <div>${record.usdValue.toLocaleString()}</div>
-                        </div>
-                      ))
+                        )
+                      )
                     ) : (
                       <p className="text-gray-400">No collateral deposits</p>
                     )}

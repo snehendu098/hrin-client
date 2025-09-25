@@ -6,7 +6,7 @@ import GridInfoCard, {
 import { InfoTable } from "@/components/cards/tables";
 import PageLayout from "@/components/page-layouts";
 import { getPoolStatus } from "@/lib/actions/pool.action";
-import { PoolStatusData, PoolStatusResponse } from "@/types/api";
+import { PoolStatusData } from "@/types/api";
 import { useEffect, useState } from "react";
 
 export default function Home() {
